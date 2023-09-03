@@ -8,6 +8,14 @@ from config import app
 # Conexión a Mongodb
 mongo = PyMongo(app)
 
+@app.route('/', methods=['GET'])
+def get_users2():
+    usuarios = mongo.db.users.find()
+    response = json_util.dumps(usuarios)  # Strings con formato JSON
+
+    return Response(response, mimetype='application/json') # Formato JSON
+
+
 @app.route('/users', methods=['POST'])
 def create_user():
     # Recibiendo datos
